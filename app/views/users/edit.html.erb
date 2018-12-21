@@ -1,0 +1,42 @@
+<h1> Edit existing article..</h1>
+
+
+<% if @userdetials.errors.any? %>
+    <ul>
+
+    <% @userdetials.errors.full_messages.each do |msg| %>
+       <b><b style="color:red"> <%= msg%> </b></b>
+    <%end%>
+    
+    </ul>
+    
+<%end%>
+
+
+<%= form_for @userdetials do |u| %>
+
+
+<p>
+    <b><%= u.label :user_name %></b> </br></br>
+    <%= u.text_field :username%>
+</p>
+
+<p>
+    <b><%= u.label :email %></b> </br></br>
+    <%= u.text_field :email%>
+</p>
+
+<p>
+    <b><%= u.label :password %></b> </br></br>
+    <%= u.text_field :password%>
+</p>
+
+<p>
+
+<%= u.submit %>    
+</p>
+    
+
+<% end %>
+
+<%= link_to "Back to User List" , users_path%>
