@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
     
+    before_action :set_user, only: [:edit, :update, :show, :destroy ]
+    
+    
     def index
         @userdetials = User.all
     end
@@ -14,15 +17,18 @@ class UsersController < ApplicationController
     end
     
     def edit
-        @userdetials=User.find(params[:id])
+        set_user
+        
     end
 
     def show
-        @userdetials=User.find(params[:id])
+       set_user
+       
     end
     
     def update
-        @userdetials=User.find(params[:id])
+       set_user
+       
         
         if @userdetials.update(user_params)
         flash[:notice] = "updated  successfully.."
@@ -50,11 +56,12 @@ class UsersController < ApplicationController
     end
     
     def destroy 
-         @userdetials=User.find(params[:id])
+         set_user
+         
         
-        if @userdetials.destroy(user_params)
+        if @userdetials.destroy
         flash[:notice] = "deleted  successfully.."
-        redirect_to user_path(@userdetials)
+        redirect_to users_path
         # <%= "Hello"%>
         else
             render 'show'
@@ -67,6 +74,10 @@ class UsersController < ApplicationController
 
     
     private
+    
+    def set_user
+         @userdetials=User.find(params[:id])
+    end
     
     def user_params
         params.require(:user).permit(:username, :email, :password)
